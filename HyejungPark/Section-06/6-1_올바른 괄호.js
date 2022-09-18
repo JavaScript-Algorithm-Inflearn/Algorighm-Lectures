@@ -5,9 +5,12 @@
 - (())() 는 괄호의 쌍이 올바르게 위치함.
 - (()())) 는 괄호의 쌍이 올바르지 못함.
 - 여러개의 괄호가 모두 제 짝이 있어 열림 - 닫힘이 표현되면 올바른 괄호라고 할 수 있음.
+
+- )()( 도 올바른 괄호로 볼 수 없다.
+  
 */
 
-const str = '(()(()))(()';
+const str = '()()';
 
 // map 객체를 활용한 풀이
 function solution1(str) {
@@ -30,6 +33,7 @@ function solution1(str) {
 const result1 = solution1(str);
 console.log(result1);
 
+/////////////////////////////////////////////////////////
 // 스택 자료구조 활용한 풀이
 function solution2(str) {
   // 자바스크립트에서 스택은 배열에서의 push와 pop으로 간단히 구현할 수 있다.
@@ -55,6 +59,25 @@ function solution2(str) {
 
 const result2 = solution2(str);
 console.log(result2);
+
+/////////////////////////////////////////////////////////
+// )()( 괄호도 올바른 괄호가 아니라는 조건을 추가한 답안
+function solution3(str) {
+  const stack = [];
+
+  for (let l of str) {
+    if (l === '(') {
+      stack.push(l);
+    } else if (l === ')') {
+      if (stack.length === 0) return false;
+      stack.pop();
+    }
+  }
+  if (stack.length === 0) return true;
+  else return false;
+}
+const result3 = solution3(str);
+console.log(result3);
 
 /*
 이 문제에서 스택 자료구조를 사용하는게 좋은 이유... (스스로 생각해봄)
