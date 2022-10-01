@@ -1,6 +1,6 @@
 function solution(arr){
     let result = [];
-    let sortedArr = arr.slice();
+    let sortedArr = arr.slice();                            // 깊은 복사, 만약에 이중 배열이면 얕은 복사 됨
     sortedArr.sort((a, b) => a - b);
     for(let i=0; i < arr.length; i++) {
         if(arr[i] !== sortedArr[i]) result.push(i+1);
