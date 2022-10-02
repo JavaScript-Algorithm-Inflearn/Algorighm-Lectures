@@ -1,3 +1,4 @@
+// 삽입정렬응용
 // function solution(size, arr){
 //     let answer=Array.from({length:size}, ()=>0);
 //     arr.forEach(x => {
@@ -22,6 +23,7 @@
 // let arr=[1, 2, 3, 2, 6, 2, 3, 5, 7];
 // console.log(solution(5, arr));
 
+// 내장 메서드 이용
 function solution(size, arr){
     let answer=[];
     arr.forEach(x => {
