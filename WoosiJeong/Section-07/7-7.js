@@ -1,5 +1,5 @@
 function solution(arr){
-    let result = arr;
+    let result = arr;                           //  얕은 복사됨
     arr.sort((a, b) => {
         if(a[0] === b[0]) return a[1] - b[1];
         else return a[0] - b[0];
