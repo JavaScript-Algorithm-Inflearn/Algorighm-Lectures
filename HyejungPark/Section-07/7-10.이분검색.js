@@ -17,13 +17,13 @@ function binarySearch(M, arr) {
   let index = -1;
 
   // 시작점
-  let low = 0;
+  let start = 0;
   // 끝점
-  let high = N - 1;
-  // low 가 high보다 작거나 같을 때까지 => low와 high 사이에 search할 요소들이 남아있는 경우
-  while (low <= high) {
-    // low와 high 의 중간값
-    let mid = parseInt((low + high) / 2);
+  let end = N - 1;
+  // start 가 high보다 작거나 같을 때까지 => start와 end 사이에 search할 요소들이 남아있는 경우
+  while (start <= end) {
+    // start와 end 의 중간값
+    let mid = parseInt((start + end) / 2);
 
     if (sortedArr[mid] === M) {
       flag = true;
@@ -32,12 +32,12 @@ function binarySearch(M, arr) {
     }
     // 중간값이 찾는 값보다 클 때 : 더 큰 쪽(mid 기준 우측)은 탐색할 필요가 없으므로 검색대상에서 제외한다.
     else if (sortedArr[mid] > M) {
-      // low 부터 mid 바로 직전까지, 현재 mid 보다 더 작은 범위에서 검색.
-      high = mid - 1;
+      // start 부터 mid 바로 직전까지, 현재 mid 보다 더 작은 범위에서 검색.
+      end = mid - 1;
     }
     // 반대의 경우 더 큰 쪽을 탐색해야한다.
     else {
-      low = mid + 1;
+      start = mid + 1;
     }
   }
 
