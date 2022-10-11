@@ -44,34 +44,49 @@ Q. 어떻게 가장 작은 좌표 + 큰 좌표 / 2 가 말들 사이의 최소 �
 const arr = [1, 2, 8, 4, 9];
 const C = 3;
 
-function count(stable, dist) {
+function count(positions, distance) {
+  // 말은 최소 하나 이상 들어갈 것이기 때문에 cnt 는 최소 1이다.
   let cnt = 1;
-  let lastPosition = stable[0];
-  for (let i = 1; i < stable.length; i++) {
-    if (stable[i] - lastPosition >= dist) {
+  // 서로 멀리 떨어뜨려 놓아야 하기 때문에, 가장 첫 번째 마굿간에 말을 둔다는 의미로
+  // 해당 위치를 기억한다.
+  let lastposition = positions[0];
+  for (let i = 1; i < positions.length; i++) {
+    // 현재 위치로 부터 마지막에 위치한 말의 거리가 주어진 distance 값(mid : 최대 거리 중 최소 거리)
+    // 보다 크거나 같다면, 그 위치에 말이 있어야 하므로 lastposition을 업데이트한다.
+    if (positions[i] - lastposition >= distance) {
       cnt++;
-      lastPosition = stable[i];
+      lastposition = positions[i];
     }
   }
   return cnt;
 }
 
-function solution(c, stable) {
-  let answer;
-  stable.sort((a, b) => a - b);
+function solution2(c, positions) {
+  // 전체 좌표 정렬
+  positions.sort((a, b) => a - b);
+  let answer = 0;
+  // 가장 최소 거리부터 최대 거리가 될 가능성이 있는 positions의 마지막 요소까지를
+  // 떨어져있는 거리의 범위로 한다.
+  // 가장 가까이 떨어져있는 거리 중 최대를 구해야 하므로 말이 각 거리이상 떨어져있다고 가정한다.
   let start = 1;
-  let end = stable[stable.length - 1];
+  let end = positions[positions.length - 1];
   while (start <= end) {
     let mid = parseInt((start + end) / 2);
-    if (count(stable, mid) >= c) {
+    // 떨어져있을 거리와 말이 주어졌을 때 말이 들어간 카운트가 c보다 크거나 같다면
+    // 최적의 답은 아니어도 정답 후보가 되므로 answer에 mid 값을 저장한다.
+    if (count(positions, mid) >= c) {
       answer = mid;
+      // 탐색 범위가 더 커야 말들이 멀리 떨어진 최적의 거리를 구할 수 있으므로
+      // start 포인트를 옮겨준다.
       start = mid + 1;
     } else {
+      // 거리가 너무 멀어지면 말이 c 마리만큼 다 들어가지 못하기 때문에
+      // end를 옮겨 더 작은 거리를 탐색하도록 범위를 좁힌다.
       end = mid - 1;
     }
   }
   return answer;
 }
 
-const result = solution(C, arr);
-console.log(result);
+const result2 = solution2(C, arr);
+console.log(result2);
