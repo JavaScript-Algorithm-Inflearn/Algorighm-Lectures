@@ -1,6 +1,6 @@
-function solution(n){
+function solution(n) {
     function dfs(m) {
-        if(m===0) return;
+        if (m === 0) return 0;
         else {
             dfs(m-1);
             console.log(m);
