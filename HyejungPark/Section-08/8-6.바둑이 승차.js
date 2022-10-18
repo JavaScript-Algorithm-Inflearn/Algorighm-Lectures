@@ -19,6 +19,7 @@ function solution(arr) {
 
   function DFS(L, sum) {
     // 바둑이 부분집합과 제한 무게를 비교
+    if (sum > C) return;
     if (L === length) {
       if (sum <= C && sum >= max) max = sum;
       else return;
