@@ -36,7 +36,7 @@ function combinations(n, m) {
     else {
       for (let i = start; i <= n; i++) {
         tmp[L] = i;
-        aux(L + 1, start + 1);
+        aux(L + 1, i + 1);
       }
     }
   }
@@ -47,6 +47,7 @@ function combinations(n, m) {
 const result = combinations(n, m);
 console.log(result);
 
+///////////////////////////////////////////////////////
 function solution(n, m) {
   let answer = [];
   let tmp = new Array(m).fill(0);
@@ -70,4 +71,4 @@ function solution(n, m) {
   return answer;
 }
 
-console.log(solution(4, 2));
+// console.log(solution(4, 2));
