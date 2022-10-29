@@ -23,29 +23,31 @@ function island(map) {
   let dx = [0, +1, +1, +1, 0, -1, -1, -1];
   let dy = [-1, -1, 0, +1, +1, +1, 0, -1];
 
-  // DFS가 돌면서 탐색이 시작되는 현재 위치는 0으로 초기화
-  function DFS(x, y) {
-    map[x][y] = 0;
-    // 시계방향으로 돌아가면서 그 주변의 경로를 모두 탐색해서 뻗어나감
-    // 여기에 대한 탐색이 다 끝나면 종료
-    for (let k = 0; k < 8; k++) {
-      let nx = x + dx[k];
-      let ny = y + dy[k];
-      if (nx >= 0 && nx < n && ny >= 0 && ny < n && map[nx][ny] === 1) {
-        DFS(nx, ny);
-      }
-    }
-  }
-
-  // 행과 열에 대해서 DFS 탐색을 하기 위해서 반복문을 돌림.
+  let queue = [];
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < n; j++) {
       if (map[i][j] === 1) {
         count++;
-        DFS(i, j);
+        map[i][j] === 0;
+        // 현재 출발 경로를 queue에 추가
+        queue.push([i, j]);
+        // queue에서 꺼내면서 그와 연관된 자식을 넣는 방식이기 때문에, 연관된 자식경로가 없다면 queue에서 요소가 빠지고 끝남.
+        while (queue.length) {
+          // 출발 경로를 shift 하여 x좌표, y좌표 분리한 다음에 탐색할 8방향으로 반복을 돌면서 queue에 추가한다
+          let [x, y] = queue.shift();
+          for (let k = 0; k < 8; k++) {
+            let nx = x + dx[k];
+            let ny = y + dy[k];
+            if (nx >= 0 && nx < n && ny >= 0 && ny < n && map[nx][ny] === 1) {
+              map[nx][ny] = 0;
+              queue.push([nx, ny]);
+            }
+          }
+        }
       }
     }
   }
+
   return count;
 }
 
